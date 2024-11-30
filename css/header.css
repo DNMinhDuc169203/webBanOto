@@ -1,0 +1,53 @@
+* Custom styles */
+navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.nav-link {
+    font-weight: 500;
+    padding: 8px 16px !important;
+}
+.nav-link:hover {
+    color: #0d6efd !important;
+}
+.btn {
+    padding: 8px 20px;
+}
+@media (max-width: 991.98px) {
+    .d-flex.gap-2 {
+        margin-top: 15px;
+    }
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+body {
+    padding-top: 70px; /* Thêm padding-top để nội dung không bị che khuất bởi navbar */
+}
+.btn-outline-primary, .btn-outline-secondary {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(13, 110, 253, 0.2);
+}
+
+.btn-outline-secondary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(108, 117, 125, 0.2);
+}
+
+.bi-cart, .bi-person-circle {
+    font-size: 1.2rem;
+}

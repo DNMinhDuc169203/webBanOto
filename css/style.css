@@ -1,0 +1,56 @@
+/* Custom styles */
+body {
+    padding-top: 76px;
+}
+
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+/* Tăng kích thước logo */
+.navbar-brand img {
+    height: 50px; /* Tăng từ 40px lên 50px */
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 8px 16px !important;
+}
+
+.nav-link:hover {
+    color: #0d6efd !important;
+}
+
+.btn {
+    padding: 8px 20px;
+}
+
+@media (max-width: 991.98px) {
+    .d-flex.gap-2 {
+        margin-top: 15px;
+    }
+}
+
+/* Banner styles */
+.carousel-item img {
+    height: 500px;
+    width: 100%;
+    
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.carousel-indicators {
+    z-index: 2;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    z-index: 2;
+} 
