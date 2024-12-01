@@ -17,10 +17,10 @@
             <div class="col-md-4 mb-4">
                 <h5 class="mb-3">Liên kết nhanh</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="#" class="text-light text-decoration-none">Trang chủ</a></li>
-                    <li class="mb-2"><a href="#" class="text-light text-decoration-none">Dịch vụ</a></li>
-                    <li class="mb-2"><a href="#" class="text-light text-decoration-none">Sản phẩm</a></li>
-                    <li class="mb-2"><a href="#" class="text-light text-decoration-none">Liên hệ</a></li>
+                    <li class="mb-2"><a href="index.php" class="text-light text-decoration-none">Trang chủ</a></li>
+                    <li class="mb-2"><a href="index.php#products" class="text-light text-decoration-none">Sản Phẩm</a></li>
+                    <li class="mb-2"><a href="index.php#services" class="text-light text-decoration-none">Dịch vụ</a></li>
+                    <li class="mb-2"><a href="index.php#contact" class="text-light text-decoration-none">Liên hệ</a></li>
                 </ul>
             </div>
 
@@ -28,9 +28,9 @@
             <div class="col-md-4 mb-4">
                 <h5 class="mb-3">Liên hệ</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Đường ABC, Quận XYZ, TP.HCM</li>
-                    <li class="mb-2"><i class="fas fa-phone me-2"></i> (84) 123 456 789</li>
-                    <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@example.com</li>
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 125A/ Au Duong Lan,Phuong 1, Quan 8, TP.HCM</li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i> (84) 824 390 594</li>
+                    <li class="mb-2"><i class="fas fa-envelope me-2"></i> dh@student.stu.edu.vn</li>
                 </ul>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="col-12">
                 <hr class="bg-light">
                 <p class="text-center mb-0">
-                    &copy; <?php echo date('Y'); ?> Tên Công Ty. Tất cả quyền được bảo lưu.
+                    &copy; <?php echo date('Y'); ?> Web bán xe oto. Tất cả quyền được bảo lưu.
                 </p>
             </div>
         </div>

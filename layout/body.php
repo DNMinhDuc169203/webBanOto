@@ -1,35 +1,17 @@
 <link rel="stylesheet" href="css/body.css">
+<section class="hero-section">
+    <div class="video-container">
+        <video autoplay muted loop class="banner-video">
+            <source src="image/banner/banner2.mp4" type="video/mp4">
+            <!-- Có thể thêm nhiều source với các định dạng khác nhau -->
+            <!-- <source src="video/banner-video.webm" type="video/webm"> -->
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</section>
 <main class="container">
     <!-- Hero Section -->
-    <section class="hero-section">
-        <!-- Carousel -->
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="image/banner/banner1oto.jpg" class="d-block w-100" alt="Banner 1">
-                </div>
-                <div class="carousel-item">
-                    <img src="image/banner/banner2oto.jpg" class="d-block w-100" alt="Banner 2">
-                </div>
-                <div class="carousel-item">
-                    <img src="image/banner/banner3oto.jpg" class="d-block w-100" alt="Banner 3">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </section>
+    
 
     <!-- Welcome Section -->
     <section class="welcome-section">
@@ -57,7 +39,7 @@
                     </div>
                 </div>
                 <div class="search-box text-center mt-4">
-                    <form action="search.php" method="GET" class="d-inline-block">
+                    <form action="" method="GET" class="d-inline-block">
                         <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm...">
                         <button type="submit">
                             <i class="fa fa-search"></i> Tìm kiếm
@@ -67,8 +49,8 @@
             </div>
         </div>
     </section>
-  
 
+    <section id="products">
 <section class="container mt-2">
     <div class="row">
         <!-- Sidebar bên trái -->
@@ -114,16 +96,51 @@
                         $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
                         $offset = ($current_page - 1) * $items_per_page;
                         
-                        // Thêm điều kiện lọc theo thương hiệu nếu có
-                        $brand_filter = isset($_GET['brand']) ? "WHERE idth = " . $_GET['brand'] : "";
+                        // Xây dựng câu query dựa trên điều kiện tìm kiếm
+                        $where_conditions = [];
+                        $params = [];
+                        
+                        // Điều kiện tìm kiếm theo keyword
+                        if (isset($_GET['keyword']) && !empty($_GET['keyword'])) {
+                            $where_conditions[] = "(o.tenxe LIKE :keyword OR th.tenthuonghieu LIKE :keyword)";
+                            $params['keyword'] = '%' . $_GET['keyword'] . '%';
+                        }
+                        
+                        // Điều kiện lọc theo thương hiệu
+                        if (isset($_GET['brand'])) {
+                            $where_conditions[] = "o.idth = :brand";
+                            $params['brand'] = $_GET['brand'];
+                        }
+                        
+                        // Tạo câu WHERE từ các điều kiện
+                        $where_clause = !empty($where_conditions) ? "WHERE " . implode(" AND ", $where_conditions) : "";
                         
                         // Đếm tổng số sản phẩm
-                        $count_stmt = $conn->query("SELECT COUNT(*) FROM oto $brand_filter");
+                        $count_sql = "SELECT COUNT(*) FROM oto o 
+                                      LEFT JOIN thuonghieu th ON o.idth = th.idth 
+                                      $where_clause";
+                        $count_stmt = $conn->prepare($count_sql);
+                        $count_stmt->execute($params);
                         $total_items = $count_stmt->fetchColumn();
                         $total_pages = ceil($total_items / $items_per_page);
                         
-                        // Query với LIMIT và OFFSET cho phân trang
-                        $stmt = $conn->query("SELECT * FROM oto $brand_filter LIMIT $items_per_page OFFSET $offset");
+                        // Query chính để lấy sản phẩm
+                        $sql = "SELECT o.*, th.tenthuonghieu 
+                                FROM oto o 
+                                LEFT JOIN thuonghieu th ON o.idth = th.idth 
+                                $where_clause 
+                                LIMIT :limit OFFSET :offset";
+                        
+                        $stmt = $conn->prepare($sql);
+                        
+                        // Bind các tham số
+                        foreach ($params as $key => $value) {
+                            $stmt->bindValue(":$key", $value);
+                        }
+                        $stmt->bindValue(':limit', $items_per_page, PDO::PARAM_INT);
+                        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+                        
+                        $stmt->execute();
                         $cars = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         
                         foreach($cars as $car) {
@@ -139,7 +156,7 @@
                             echo '<li class="price-tag"><i class="fas fa-tag"></i> Giá: ' . number_format($car['giaxe'], 0, ',', '.') . ' VNĐ</li>';
                             echo '</ul>';
                             echo '<div class="text-center mt-3">';
-                            echo '<a href="chitiet.php?id=' . $car['idoto'] . '" class="btn btn-primary">Xem chi tiết</a>';
+                            echo '<a href="../view/chitiet.php?id=' . $car['idoto'] . '" class="btn btn-primary">Xem chi tiết</a>';
                             echo '</div>';
                             echo '</div>';
                             echo '</div>';
@@ -188,8 +205,9 @@
         </div>
     </div>
     </section>
+</section>
 
-
+<section id="services">
 <section class="additional-services-section container">
                 <h2 class="section-title text-center mb-4">Dịch Vụ Của Chúng Tôi</h2>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -215,6 +233,7 @@
                     ?>
                 </div>
 </section>
+</section>
             <div class="container mb-3 mt-3 ">
                 <div class="row gx-5">
                     <div class="col">
@@ -232,4 +251,3 @@
             </div> 
 
 </main>
-<script src="js/search.js"></script>

@@ -96,13 +96,7 @@ if(isset($_POST['delete_account'])) {
                                         </form>
                                     <?php endif; ?>
 
-                                    <button type="button" 
-                                            class="btn btn-sm btn-primary view-orders"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#ordersModal"
-                                            data-idkh="<?php echo $account['idkh']; ?>">
-                                        Xem đơn hàng
-                                    </button>
+                                    
 
                                     <a href="?page=taikhoan_edit&id=<?php echo $account['idtk']; ?>" 
                                        class="btn btn-sm btn-warning">

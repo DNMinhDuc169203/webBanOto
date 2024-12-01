@@ -1,3 +1,9 @@
+.carousel-item img {
+    height: auto;
+    width: auto;
+    
+}
+
 .services-section {
     padding: 40px 0;
     background-color: #f8f9fa;
@@ -164,4 +170,42 @@
 
 .search-box button:hover {
     background-color: #0056b3;
+}
+
+/* Banner Animation */
+
+/* Sử dụng ken burns thay cho bannerZoom nếu muốn
+.animated-banner {
+    width: 100%;
+    height: auto;
+    animation: kenBurns 30s infinite;
+} */
+
+/* Video Banner Styles */
+.video-container {
+    width: 100%;
+    height: 650px; /* Điều chỉnh chiều cao theo ý muốn */
+    overflow: hidden;
+    position: relative;
+}
+
+.banner-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo video lấp đầy container mà không bị méo */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Tùy chọn: Thêm overlay để làm tối video */
+.video-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Điều chỉnh độ tối */
+    pointer-events: none;
 }

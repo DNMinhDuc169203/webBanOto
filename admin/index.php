@@ -76,10 +76,11 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
         <!-- Main content -->
         <main class="col-md-10 ms-sm-auto px-md-4">
             <?php
-            // Include the appropriate page content
+            // Trang có thể truy cập
             $valid_pages = [
                 'dashboard', 
                 'oto', 
+                'oto_edit',
                 'thuonghieu', 
                 'nhasanxuat', 
                 'khachhang', 

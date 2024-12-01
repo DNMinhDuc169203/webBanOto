@@ -2,8 +2,8 @@
 function handleCredentialResponse(response) {
     console.log('Google Sign-In response:', response);
     
-    // Gửi token về server để xác thực
-    fetch('google_login.php', {
+    // Sửa đường dẫn đến google_login.php
+    fetch('../auth/google_login.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ function handleCredentialResponse(response) {
         console.log('Response data:', data);
         if (data.success) {
             console.log('Login successful, redirecting...');
-            window.location.href = 'index.php';
+            window.location.href = '../index.php';
         } else {
             console.error('Login failed:', data.error);
             showError(data.error || 'Đăng nhập thất bại');

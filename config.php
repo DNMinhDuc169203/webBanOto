@@ -14,4 +14,6 @@ try {
 } catch(PDOException $e) {
     echo "Kết nối thất bại: " . $e->getMessage();
 }
+
+
 ?>
